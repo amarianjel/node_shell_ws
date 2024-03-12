@@ -45,7 +45,7 @@ export class TicketService {
     }
 
     this.tickets.push(ticket);
-    // this.onTicketNumberChanged();
+    this.onTicketNumberChanged();
 
     return ticket;
   }
@@ -59,8 +59,8 @@ export class TicketService {
     ticket.handleAt = new Date();
 
     this.workingOnTickets.unshift({...ticket});
-    // this.onTicketNumberChanged();
-    // this.onWorkingOnChanged();
+    this.onTicketNumberChanged();
+    this.onWorkingOnChanged();
 
     return { status: 'ok', ticket }
   }
@@ -81,11 +81,11 @@ export class TicketService {
     return { status: 'ok' }
   }
 
-  // private onTicketNumberChanged() {
-  //   this.wssService.sendMessage('on-ticket-count-changed', this.pendingTickets.length );
-  // }
+  private onTicketNumberChanged() {
+    this.wssService.sendMessage('on-ticket-count-changed', this.pendingTickets.length );
+  }
 
-  // private onWorkingOnChanged() {
-  //   this.wssService.sendMessage('on-working-changed', this.lastWorkingOnTickets );
-  // }
+  private onWorkingOnChanged() {
+    this.wssService.sendMessage('on-working-changed', this.lastWorkingOnTickets );
+  }
 }
